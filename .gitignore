@@ -1,0 +1,28 @@
+# 依赖
+node_modules/
+src/renderer/node_modules/
+
+# 构建产物（Actions 会重新构建，不需要提交）
+dist/
+src/renderer/dist/
+release/
+
+# 环境变量（含 token，不能提交）
+.env
+.env.local
+.env.*.local
+
+# 日志
+*.log
+npm-debug.log*
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# electron-builder 缓存
+.electron-builder-cache/

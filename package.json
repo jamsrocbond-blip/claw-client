@@ -1,0 +1,82 @@
+{
+  "name": "clawcomply",
+  "version": "0.1.0",
+  "description": "ClawComply 企业合规平台 - 律师客户端",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "build:main": "node --max-old-space-size=4096 node_modules/typescript/bin/tsc -p tsconfig.main.json",
+    "build:preload": "node --max-old-space-size=4096 node_modules/typescript/bin/tsc -p tsconfig.preload.json",
+    "build:renderer": "cd src/renderer && npm run build",
+    "build": "npm run build:main && npm run build:preload && npm run build:renderer",
+    "build:mac": "npm run build && electron-builder --mac",
+    "build:win": "npm run build && electron-builder --win",
+    "dist": "npm run build && electron-builder --win --publish never"
+  },
+  "build": {
+    "appId": "com.clawcomply.lawyer",
+    "productName": "ClawComply",
+    "copyright": "Copyright © 2026 ClawComply",
+    "directories": {
+      "output": "release",
+      "buildResources": "build-resources"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": ".env.production",
+        "to": ".env.production"
+      }
+    ],
+    "asarUnpack": [],
+    "electronUpdaterCompatibility": ">=2.16",
+    "win": {
+      "target": [
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build-resources/icon.ico",
+      "signAndEditExecutable": false,
+      "verifyUpdateCodeSignature": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "build-resources/icon.ico",
+      "uninstallerIcon": "build-resources/icon.ico",
+      "installerHeaderIcon": "build-resources/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ClawComply 合规平台",
+      "include": "build-resources/installer.nsh"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build-resources/icon.icns",
+      "category": "public.app-category.business"
+    },
+    "publish": null
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "electron-store": "^8.2.0",
+    "ws": "^8.20.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/ws": "^8.5.10",
+    "concurrently": "^9.2.1",
+    "electron": "^42.1.0",
+    "electron-builder": "^26.8.1",
+    "typescript": "^5.4.5",
+    "wait-on": "^9.0.10"
+  }
+}
