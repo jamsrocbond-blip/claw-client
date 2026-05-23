@@ -2,6 +2,10 @@
 node_modules/
 src/renderer/node_modules/
 
+# renderer 的 lockfile 是平台相关的（esbuild 等），不提交
+# 每个平台在 CI 上重新生成
+src/renderer/package-lock.json
+
 # 构建产物（Actions 会重新构建，不需要提交）
 dist/
 src/renderer/dist/

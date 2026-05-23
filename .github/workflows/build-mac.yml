@@ -53,7 +53,10 @@ jobs:
         run: npm install
 
       - name: Install renderer dependencies
-        run: npm install
+        # 删除 Windows 生成的 package-lock.json，让 macOS 重新解析平台相关依赖
+        run: |
+          rm -f package-lock.json
+          npm install
         working-directory: src/renderer
 
       - name: Build main process
